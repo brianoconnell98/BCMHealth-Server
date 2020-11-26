@@ -5,6 +5,7 @@ patientsRouter = require("./api/patients")
 physiosRouter = require("./api/physios")
 
 app.use(express.json())
+app.use("/" , __dirname);
 
 app.get("/", (req, res) =>{
     res.json({
