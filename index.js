@@ -5,6 +5,7 @@ patientsRouter = require("./api/patients")
 physiosRouter = require("./api/physios")
 
 app.use(express.json())
+//Permit transferring of data from one server to the other
 app.use(cors())
 app.get("/", (req, res) =>{
     res.json({
