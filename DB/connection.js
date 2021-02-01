@@ -1,4 +1,4 @@
-// mongodb connection string from mongodb
+// mongodb connection string from mongodb website
 mongoose.connect("mongodb+srv://BrianOConnell:fypproject@bcmhealth.5zklp.mongodb.net/bcmhealth?retryWrites=true&w=majority",{
     useFindAndModify: false, 
     useNewUrlParser: true, 

@@ -9,3 +9,5 @@ physioSchema = mongoose.Schema({
     { timestamps: true },
 )
 Physio = mongoose.model("Physio", physioSchema)
+
+module.exports = Physio 

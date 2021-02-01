@@ -5,8 +5,11 @@ patientsRouter = require("./api/patients")
 physiosRouter = require("./api/physios")
 
 app.use(express.json())
-//Permit transferring of data from one server to the other
+
+//Permit transferring of data from one server to the other 
+//Adam O Ceallagigh explained as to how to download this add on
 app.use(cors())
+
 app.get("/", (req, res) =>{
     res.json({
         message: "Hello World!"
