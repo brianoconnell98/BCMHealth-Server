@@ -7,17 +7,17 @@ physio = require("../DB/Models/physio");
 router.get("/", async(req, res)=>{
     const physios = await physio.find({})
     res.send(physios)
-})
+});
 
 router.post("/", async(req, res)=>{
     const newPhysio = {
         name: req.body.name,
-        email: req.body.name,
+        email: req.body.email,
         location: req.body.location
     };
     let createdPhysio = await physio.create(newPhysio)
     res.send(createdPhysio)
-})
+});
 
 
-module.exports = router
+module.exports = router;
