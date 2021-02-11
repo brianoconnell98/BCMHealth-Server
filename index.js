@@ -5,15 +5,11 @@ patientsRouter = require("./api/patients")
 physiosRouter = require("./api/physios")
 
 // https://www.youtube.com/watch?v=6FOq4cUdH8k
-const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 
 // Passport config
 require('./Helpers_and_Prerequisites/passport')(passport);
-
-// Bodyparser https://www.youtube.com/watch?v=6FOq4cUdH8k
-app.use(express.urlencoded({ extended: false }));
 
 // Express-Session https://www.youtube.com/watch?v=6FOq4cUdH8k
 app.use(session({
@@ -26,15 +22,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Connect flash https://www.youtube.com/watch?v=6FOq4cUdH8k
-app.use(flash());
-
 // Global Variables https://www.youtube.com/watch?v=6FOq4cUdH8k
 //messages.ejs 1:16:39
 app.use((req, res, next) =>{
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error');
+    // res.locals.success_msg = req.flash('success_msg');
+    // res.locals.error_msg = req.flash('error_msg');
+    // res.locals.error = req.flash('error');
     next();
 });
 
