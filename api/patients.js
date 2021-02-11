@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
 
-// App is mounted at http://localhost:8080/patients/login, anything after this is prefixed with this 
+// App is mounted at http://localhost:8080/patients, anything after this is prefixed with this 
 
 
 //Patient model 
