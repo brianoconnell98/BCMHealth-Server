@@ -31,6 +31,7 @@ app.use((req, res, next) =>{
     next();
 });
 
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 
 //Permit transferring of data from one server to the other 
