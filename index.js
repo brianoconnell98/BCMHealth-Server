@@ -23,6 +23,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Global Variables https://www.youtube.com/watch?v=6FOq4cUdH8k
+// Used for .ejs and flash type message alerts
 //messages.ejs 1:16:39
 app.use((req, res, next) =>{
     // res.locals.success_msg = req.flash('success_msg');
@@ -31,6 +32,7 @@ app.use((req, res, next) =>{
     next();
 });
 
+// https://stackoverflow.com/questions/47232187/express-json-vs-bodyparser-json
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 

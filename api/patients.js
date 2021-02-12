@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
   res.send(patients);
 });
 
+// Traversy Media https://www.youtube.com/watch?v=6FOq4cUdH8k
 // Register Handle
 router.post("/", async (req, res) => {
   const { name: Name, email, age, password } = req.body,

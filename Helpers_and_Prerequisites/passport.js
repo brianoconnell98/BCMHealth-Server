@@ -32,7 +32,7 @@ module.exports = function(passport) {
             .catch(err => console.log(err));
         })
     );
-    // //should this be passport.serializeUser all the way through?
+    
     passport.serializeUser((patient, done) => {
         done(null, patient.id);
     });
