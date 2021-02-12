@@ -11,7 +11,7 @@ const passport = require("passport");
 const Patient = require("../DB/Models/patient");
 
 router.get("/", async (req, res) => {
-  const patients = await patient.find({});
+  const patients = await Patient.find({});
   res.send(patients);
 });
 
@@ -73,17 +73,19 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/:name", async (req, res) => {
-  const patientFound = await patient.find({ name: req.params.name });
+  const patientFound = await Patient.find({ name: req.params.name });
   res.send(patientFound);
 });
 
 // // Login Handle // '/dashboard is an example'
-router.post("/login", (req, res, next) => {
+// router.post("/login", (req, res, next) => {
+  router.post("/login", (req, res) => {
   passport.authenticate("local", {
     successRedirect: "https://bcmhealth.netlify.app/success",
     failureRedirect: "https://bcmhealth.netlify.app/login",
-    failureFlash: true,
-  })(req, res, next);
+    //failureFlash: true,
+  })(req, res);
+  //})(req, res, next);
 });
 
 module.exports = router;
