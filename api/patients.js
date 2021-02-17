@@ -1,4 +1,4 @@
-const { Router } = require("../Helpers_and_Prerequisites/libs_required");
+// const { Router } = require("../Helpers_and_Prerequisites/libs_required");
 
 import { express, bcrypt } from "../Helpers_and_Prerequisites/libs_required.js"
 //Patient model
@@ -92,4 +92,4 @@ patientRouter.get("/:name", async (req, res) => {
   })(req, res);
 });
 
-module.exports = router;
+export default patientRouter 

@@ -1,26 +1,19 @@
-const express = require("./Helpers_and_Prerequisites/libs_required"),
-app = express(),
-port = process.env.PORT || 8000;
-patientsRouter = require("./api/patients")
-physiosRouter = require("./api/physios")
-const bodyParser = require("body-parser");
-const passportLocal = require("passport-local").Strategy;
+import { session, cors, express, passport, cookieParser, bcrypt } from "./Helpers_and_Prerequisites/libs_required.js";
+const app = express();
+const port = process.env.PORT || 8000;
+import patientRouter from "./api/patients.js";
+import physioRouter from "./api/physios.js";
 
-// should i have it like this?
-import { session, cors, express, passport, passportLocal, cookieParser, bcrypt } from "../Helpers_and_Prerequisites/libs_required.js"
-
-// https://www.youtube.com/watch?v=6FOq4cUdH8k
-const session = require('express-session');
-const passport = require('passport');
 
 // Passport config
-require('./Helpers_and_Prerequisites/passport')(passport);
+import passportInitialize from "./Helpers_and_Prerequisites/passport.js"
 
 //--------------------------------------------- Middleware ----------------------------------------------
 
 // Passport https://www.youtube.com/watch?v=6FOq4cUdH8k / https://www.youtube.com/watch?v=IUw_TgRhTBE&ab_channel=NathanielWoodbury&fbclid=IwAR2zsQHInNxkAsUCLiyxlzIDFBm5eocorsPulPYUBxfdQ0H3CuUNmMry2HY
 app.use(passport.initialize());
 app.use(passport.session());
+passportInitialize(passport)
 
 // Global Variables https://www.youtube.com/watch?v=6FOq4cUdH8k
 // Used for .ejs and flash type message alerts
@@ -55,14 +48,14 @@ app.get("/", (req, res) =>{
     })
 })
 
-app.use("/patients", patientsRouter)
+app.use("/patients", patientRouter)
 app.post("/:name", (req, res) =>{
     res.json({
         message: `Well from ${req.params.name}, ${req.params.email}, ${req.body.age}`
     })
 })
 
-app.use("/physios", physiosRouter)
+app.use("/physios", physioRouter)
 app.post("/:name", (req, res) =>{
     res.json({
         message: `Well from ${req.params.name}, ${req.params.email}, ${req.body.age}`

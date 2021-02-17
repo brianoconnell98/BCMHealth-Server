@@ -1,14 +1,12 @@
 //www.passport.org/docs/
 //https://www.youtube.com/watch?v=6FOq4cUdH8k
-
-const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import {passportLocal, mongoose, bcrypt} from "./libs_required.js"
+const LocalStrategy = passportLocal.Strategy;
 
 // Load Patient Model
-const Patient = require('../DB/Models/patient');
+import {Patient} from '../DB/Models/patient.js';
 
-module.exports = function(passport) {
+const instantiate = function(passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
             // Match Patient
@@ -43,3 +41,5 @@ module.exports = function(passport) {
         });
     });
 }
+
+export default instantiate
