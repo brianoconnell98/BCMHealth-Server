@@ -3,6 +3,11 @@ app = express(),
 port = process.env.PORT || 8000;
 patientsRouter = require("./api/patients")
 physiosRouter = require("./api/physios")
+const bodyParser = require("body-parser");
+const passportLocal = require("passport-local").Strategy;
+
+// should i have it like this?
+import { session, cors, express, passport, passportLocal, cookieParser, bcrypt } from "../Helpers_and_Prerequisites/libs_required.js"
 
 // https://www.youtube.com/watch?v=6FOq4cUdH8k
 const session = require('express-session');
@@ -11,14 +16,9 @@ const passport = require('passport');
 // Passport config
 require('./Helpers_and_Prerequisites/passport')(passport);
 
-// Express-Session https://www.youtube.com/watch?v=6FOq4cUdH8k
-app.use(session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true
-}));
+//--------------------------------------------- Middleware ----------------------------------------------
 
-// Passport middleware https://www.youtube.com/watch?v=6FOq4cUdH8k
+// Passport https://www.youtube.com/watch?v=6FOq4cUdH8k / https://www.youtube.com/watch?v=IUw_TgRhTBE&ab_channel=NathanielWoodbury&fbclid=IwAR2zsQHInNxkAsUCLiyxlzIDFBm5eocorsPulPYUBxfdQ0H3CuUNmMry2HY
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -31,15 +31,24 @@ app.use((req, res, next) =>{
     // res.locals.error = req.flash('error');
     next();
 });
-
+// Middleware
 // https://stackoverflow.com/questions/47232187/express-json-vs-bodyparser-json
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
-
 //Permit transferring of data from one server to the other 
 //Adam O Ceallaigh explained as to how to download this add on
+// why does he open up a function and give a url? + credentials= 'true' 8:46 first video
 app.use(cors())
+// Express-Session https://www.youtube.com/watch?v=6FOq4cUdH8k
+app.use(session({
+    secret: 'secretcode',
+    resave: true,
+    saveUninitialized: true
+}));
+// Cookie Parser https://www.youtube.com/watch?v=IUw_TgRhTBE&ab_channel=NathanielWoodbury&fbclid=IwAR2zsQHInNxkAsUCLiyxlzIDFBm5eocorsPulPYUBxfdQ0H3CuUNmMry2HY
+app.use(cookieParser("secretcode"))
 
+// Routes
 app.get("/", (req, res) =>{
     res.json({
         message: "Hello World!"
@@ -60,6 +69,7 @@ app.post("/:name", (req, res) =>{
     })
 })
 
+// Start Server
 app.listen(port, () =>{
     console.log(`Your server seems to have started on ${port}`)
 })

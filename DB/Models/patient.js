@@ -15,7 +15,9 @@
 //https://www.youtube.com/watch?v=6FOq4cUdH8k
 
 const mongoose = require('../connection');
+const Joi = require('../../Helpers_and_Prerequisites')
 
+// declaring Schema for validation
 const patientSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -39,6 +41,14 @@ const patientSchema = new mongoose.Schema({
     }
 });
 
+// JOI documentation for error handling for schemas - https://www.youtube.com/watch?v=PwUoiTt2oKM&ab_channel=NoobCoder&fbclid=IwAR1FlAFIDWyItHSy9aSgFyGrWd9zGXgjQuL3wby1WWR27guh5okMXxERPxM
+patientValidationSchema = Joi.object().keys({
+    name: Joi.string().trim().required(),
+    email : Joi.string().trim().email().required(),
+    age : Joi.Number().trim().min(0).max(3).required(),
+    password : Joi.string().trim().min(4).max(20).required()
+});
+
 const Patient = mongoose.model('Patient', patientSchema);
 
-module.exports = Patient;
+export { Patient, patientValidationSchema }
