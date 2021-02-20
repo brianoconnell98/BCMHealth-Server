@@ -1,5 +1,3 @@
-// const { Router } = require("../Helpers_and_Prerequisites/libs_required");
-
 import { express, bcrypt } from "../Helpers_and_Prerequisites/libs_required.js"
 //Patient model
 import { Patient, patientValidationSchema } from "../DB/Models/patient.js"
@@ -14,11 +12,6 @@ const options = {
 };
 
 // App is mounted at http://localhost:8080/patients, anything after this is prefixed with this
-
-// Notes for Adam
-// 13 mins into video from nathaniel woodbury - state - import from react to hold values throughout application.
-// Also the axios are put in the app.js file with the input fields this is the front end for him.
-// Can i implement that into my project?
 
 // Getting all patients
 patientRouter.get("/", async (req, res) => {
@@ -81,6 +74,10 @@ patientRouter.post("/", async (req, res) => {
 patientRouter.get("/:name", async (req, res) => {
   const patientFound = await Patient.find({ name: req.params.name });
   res.send(patientFound);
+});
+
+patientRouter.get("/user", async (req, res) => {
+  res.send(req.user);
 });
 
 // // Login Handle // '/dashboard is an example'

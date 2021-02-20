@@ -25,7 +25,7 @@ const physioSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    age: {
+    location: {
         type: Number,
         required: true
     },
@@ -43,10 +43,10 @@ const physioSchema = new mongoose.Schema({
 physioValidationSchema = Joi.object().keys({
     name: Joi.string().trim().required(),
     email : Joi.string().trim().email().required(),
-    age : Joi.string().trim().min(0).max(3).required(),
+    location : Joi.string().trim().required(),
     password : Joi.string().trim().min(4).max(20).required()
 });
 
-const physio = mongoose.model('Physio', physioSchema);
+const Physio = mongoose.model('Physio', physioSchema);
 
-export { physio, physioValidationSchema }
+export { Physio, physioValidationSchema }

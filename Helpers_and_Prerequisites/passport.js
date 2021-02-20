@@ -3,7 +3,7 @@
 import {passportLocal, mongoose, bcrypt} from "./libs_required.js"
 const LocalStrategy = passportLocal.Strategy;
 
-// Load Patient Model
+// Load Patient Model // Load Physio Model
 import {Patient} from '../DB/Models/patient.js';
 
 const instantiate = function(passport) {
