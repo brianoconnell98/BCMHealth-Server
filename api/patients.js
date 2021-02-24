@@ -19,6 +19,26 @@ patientRouter.get("/", async (req, res) => {
   res.send(patients);
 });
 
+//Nathaniel Woodbury Passport video
+patientRouter.post("/nathan", (req, res) => {
+  Patient.findOne({email: req.body.email}, async (err,doc) => {
+    if (err) throw err;
+    if (doc) res.send("User already exists");
+    if (!doc) {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+      const newPatient = new Patient({
+        Name: req.body.name,
+        email: req.body.email,
+        age: req.body.age,
+        password: hashedPassword,  
+      });
+      await newPatient.save();
+      res.send("Patient Created")
+    }
+  })
+});
+
 // Traversy Media https://www.youtube.com/watch?v=6FOq4cUdH8k
 // Register Handle
 patientRouter.post("/", async (req, res) => {

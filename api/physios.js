@@ -14,7 +14,7 @@ const options = {
   // App is mounted at http://localhost:8080/physios, anything after this is prefixed with this
 
   // Getting all physios
-physioRouter.get("/", async(req, res)=>{
+    physioRouter.get("/", async(req, res)=> {
     const physios = await Physio.find({});
     res.send(physios);
 });
