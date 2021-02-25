@@ -8,36 +8,36 @@ import {Patient} from '../DB/Models/patient.js';
 import {Physio} from '../DB/Models/physio.js'
 
 // // Nathaniel woodbury version of passport
-// const instantiate = function(passport) {
-//     passport.use(
-//         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-//             Patient.findOne({ email: email}, (err,patient) => {
-//                 if (err) throw err;
-//                 if (!patient) return done(null, false, { message: 'The email provided is not registered'});
-//                 bcrypt.compare(password, patient.password, (err, result) => {
-//                     if (err) throw err;
-//                     if (result === true) {
-//                         return done(null, patient);
-//                     } else {
-//                         return done(null, false, { message: 'The password is incorrect' });
-//                     }
-//                 });
-//             })
-//             .catch(err => console.log(err));
-//         })
-//     );
+const instantiate = function(passport) {
+    passport.use(
+        new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+            Patient.findOne({ email: email}, (err,patient) => {
+                if (err) throw err;
+                if (!patient) return done(null, false, { message: 'The email provided is not registered'});
+                bcrypt.compare(password, patient.password, (err, result) => {
+                    if (err) throw err;
+                    if (result === true) {
+                        return done(null, patient);
+                    } else {
+                        return done(null, false, { message: 'The password is incorrect' });
+                    }
+                });
+            })
+            .catch(err => console.log(err));
+        })
+    );
 
-//     //serialize Patient
-//     passport.serializeUser((patient, done) => {
-//         done(null, patient.id);
-//     });
+    //serialize Patient
+    passport.serializeUser((patient, done) => {
+        done(null, patient.id);
+    });
 
-//     passport.deserializeUser((id, done) => {
-//         Patient.findById(id, (err, patient) => {
-//             done(err, patient);
-//         });
-//     });
-// }
+    passport.deserializeUser((id, done) => {
+        Patient.findById(id, (err, patient) => {
+            done(err, patient);
+        });
+    });
+}
                
     //                Physio.findOne({ email: email}, (err,physio) => {
     //                 if (err) throw err;
@@ -97,37 +97,37 @@ import {Physio} from '../DB/Models/physio.js'
     //     })
     // );
 
-const instantiate1 = function(passport) {
-    passport.use(
-        new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-            Physio.findOne({ email: email}, (err,physio) => {
-                if (err) throw err;
-                if (!physio) return done(null, false, { message: 'The email provided is not registered'});
-                bcrypt.compare(password, physio.password, (err, result) => {
-                    if (err) throw err;
-                    if (result === true) {
-                        return done(null, physio);
-                    } else {
-                        return done(null, false, { message: 'The password is incorrect' });
-                    }
-                });
-            })
-            .catch(err => console.log(err));
-        })
-    );
+// const instantiate1 = function(passport) {
+//     passport.use(
+//         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+//             Physio.findOne({ email: email}, (err,physio) => {
+//                 if (err) throw err;
+//                 if (!physio) return done(null, false, { message: 'The email provided is not registered'});
+//                 bcrypt.compare(password, physio.password, (err, result) => {
+//                     if (err) throw err;
+//                     if (result === true) {
+//                         return done(null, physio);
+//                     } else {
+//                         return done(null, false, { message: 'The password is incorrect' });
+//                     }
+//                 });
+//             })
+//             .catch(err => console.log(err));
+//         })
+//     );
 
-    //serialize Physio
-    passport.serializeUser((physio, done) => {
-        done(null, physio.id);
-    });
+//     //serialize Physio
+//     passport.serializeUser((physio, done) => {
+//         done(null, physio.id);
+//     });
 
-    passport.deserializeUser((id, done) => {
-        Physio.findById(id, (err, physio) => {
-            done(err, physio);
-        });
-    });
-}
+//     passport.deserializeUser((id, done) => {
+//         Physio.findById(id, (err, physio) => {
+//             done(err, physio);
+//         });
+//     });
+// }
 
-export default instantiate1
+export default instantiate
 
 // export {instantiate, instantiate1}

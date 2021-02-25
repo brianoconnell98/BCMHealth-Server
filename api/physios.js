@@ -11,7 +11,7 @@ const options = {
     stripUnknown: true //remove unknown props
   };
 
-  // App is mounted at http://localhost:8080/physios, anything after this is prefixed with this
+  // App is mounted at http://localhost:8000/physios, anything after this is prefixed with this
 
   // Getting all physios
     physioRouter.get("/", async(req, res)=> {
