@@ -58,6 +58,8 @@ import {Physio} from '../DB/Models/physio.js'
                     }
                 });
             })
+            .catch(err => console.log(err));
+        
             // Match Physio
             Physio.findOne({ email: email })
             .then(physio => {
