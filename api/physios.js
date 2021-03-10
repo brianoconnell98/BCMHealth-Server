@@ -82,11 +82,11 @@ physioRouter.post("/", async (req, res) => {
   
   // // Login Handle // '/dashboard is an example'
   // router.post("/login", (req, res, next) => {
-    physioRouter.post("/login", (req, res) => {
-    passport.authenticate("local", {
-      successRedirect: "https://bcmhealth.netlify.app/success",
+    physioRouter.post("/login", (req, res, next) => {
+    passport.authenticate("physio", {
+      successRedirect: "https://bcmhealth.netlify.app/index.html",  // + sessionStorage.setItem('userId','1234')),
       failureRedirect: "https://bcmhealth.netlify.app/login",
-    })(req, res);
+    })(req, res, next);
   });
   
   export default physioRouter 

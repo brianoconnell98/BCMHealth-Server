@@ -100,13 +100,12 @@ patientRouter.get("/user", async (req, res) => {
   res.send(req.user);
 });
 
-// // Login Handle // '/dashboard is an example'
-// router.post("/login", (req, res, next) => {
-  patientRouter.post("/login", (req, res) => {
-  passport.authenticate("local", {
-    successRedirect: "https://bcmhealth.netlify.app/success",
+// // Login Handle 
+  patientRouter.post("/login", (req, res, next) => {
+  passport.authenticate("patient", {
+    successRedirect: "https://bcmhealth.netlify.app/support.html?loggedIn=true",
     failureRedirect: "https://bcmhealth.netlify.app/login",
-  })(req, res);
+  })(req, res, next);
 });
 
 export default patientRouter 
