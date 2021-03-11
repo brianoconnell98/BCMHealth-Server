@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 import patientRouter from "./api/patients.js";
 import physioRouter from "./api/physios.js";
-
+import conversationRouter from "./api/conversations.js";
 
 // Passport config
 import passportInitialize from "./Helpers_and_Prerequisites/passport.js"
@@ -53,6 +53,7 @@ app.get("/", (req, res) =>{
 
 app.use("/patients", patientRouter)
 app.use("/physios", physioRouter)
+app.use("/conversations", conversationRouter)
 app.post("/:name", (req, res) =>{
     res.json({
         message: `Well from ${req.params.name}, ${req.params.email}, ${req.body.age}`
