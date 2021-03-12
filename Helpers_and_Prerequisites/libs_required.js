@@ -17,5 +17,6 @@ import passportLocal from 'passport-local'
 import session from 'express-session'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import Pusher from 'pusher'
 
-export { express, mongoose, Joi, bcrypt, passport, passportLocal, session, cors, cookieParser }
+export { express, mongoose, Joi, bcrypt, passport, passportLocal, session, cors, cookieParser, Pusher}

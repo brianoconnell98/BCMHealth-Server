@@ -1,8 +1,7 @@
-import { session, cors, express, passport, cookieParser, bcrypt } from "./Helpers_and_Prerequisites/libs_required.js";
+import { session, cors, express, passport, cookieParser } from "./Helpers_and_Prerequisites/libs_required.js";
 const app = express();
 const port = process.env.PORT || 8000;
-import patientRouter from "./api/patients.js";
-import physioRouter from "./api/physios.js";
+import userRouter from "./api/users.js";
 import conversationRouter from "./api/conversations.js";
 
 // Passport config
@@ -51,8 +50,7 @@ app.get("/", (req, res) =>{
     })
 })
 
-app.use("/patients", patientRouter)
-app.use("/physios", physioRouter)
+app.use("/users", userRouter)
 app.use("/conversations", conversationRouter)
 app.post("/:name", (req, res) =>{
     res.json({
