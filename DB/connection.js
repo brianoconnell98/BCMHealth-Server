@@ -1,6 +1,7 @@
 // mongodb connection string from mongodb website
 import {mongoose, Pusher} from "../Helpers_and_Prerequisites/libs_required.js"
 
+// Pusher code from pusher.com
 //Pusher Config
 const pusher = new Pusher({
     appId: "1170624",
@@ -21,6 +22,9 @@ mongoose.connect("mongodb+srv://BrianOConnell:fypproject@bcmhealth.5zklp.mongodb
     console.log(err)
 })
 
+// Clever Programmer
+// https://youtu.be/BKY0avHeda8
+// https://youtu.be/OgOx6Y40-3s
 mongoose.connection.once('open', () => {
     const changeStream = mongoose.connection.collection('conversations').watch()
 

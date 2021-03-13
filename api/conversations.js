@@ -1,5 +1,5 @@
 import { express } from "../Helpers_and_Prerequisites/libs_required.js"
-//Conversation model
+// Importing models
 import { Conversation, conversationValidationSchema } from "../DB/Models/conversation.js"
 import { Message, messageValidationSchema } from "../DB/Models/message.js"
 import { User } from "../DB/Models/user.js"
@@ -19,8 +19,9 @@ const options = {
 conversationRouter.get("/", async (req, res) => {
     const conversations = await Conversation.find({}).populate("Messages").populate("Sender").populate("Receiver");
     res.send(conversations);
-  });
+});
 
+// New Conversation Route
 conversationRouter.post('/new_conversation', async(req, res) => {
     let errors = [];
     try{ 
@@ -41,6 +42,7 @@ conversationRouter.post('/new_conversation', async(req, res) => {
     }
 })
 
+// Post new message with conversationID in the url
 conversationRouter.post('/:conversationId/new_message', async (req, res) => {
     let errors = [];
     try {
@@ -57,22 +59,11 @@ conversationRouter.post('/:conversationId/new_message', async (req, res) => {
     } catch (error) {
         res.send(error)
     }
-    // Conversation.update(
-    //     { _id: req.query.id },
-    //     { $push: { conversation: req.body } },
-    //     (err, data) => {
-    //         if (err) {
-    //             console.log('Error saving message...')
-    //             console.log(err)
-
-    //             res.status(500).send(err)
-    //         } else {
-    //             res.status(201).send(data)
-    //         }
-    //     }
-    // )
 })
 
+// Code from Clever Programmer
+// https://youtu.be/BKY0avHeda8
+// https://youtu.be/OgOx6Y40-3s
 conversationRouter.get('/get/conversationList', (req, res) => {
     mongoData.find((err, data) => {
         if (err) {
@@ -99,6 +90,9 @@ conversationRouter.get('/get/conversationList', (req, res) => {
     })
 })
 
+// Clever Programmer
+// https://youtu.be/BKY0avHeda8
+// https://youtu.be/OgOx6Y40-3s
 conversationRouter.get('/get/conversation', (req, res) => {
     const id = req.query.id
 
@@ -111,6 +105,9 @@ conversationRouter.get('/get/conversation', (req, res) => {
     })
 })
 
+// Clever Programmer
+// https://youtu.be/BKY0avHeda8
+// https://youtu.be/OgOx6Y40-3s
 conversationRouter.get('/get/lastMessage', (req, res) => {
     const id = req.query.id
 

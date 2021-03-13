@@ -2,7 +2,8 @@ import { User } from "../DB/Models/user.js";
 import { bcrypt, passportLocal } from "./libs_required.js";
 const localStrategy = passportLocal.Strategy;
 
-//Pasport Function To Export
+// Passport for User
+//Passport Function To Export
 const instantiate = async (passport) => {
   passport.use(
     new localStrategy({ usernameField: "email" }, async (email, password, done) => {

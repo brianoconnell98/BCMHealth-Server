@@ -1,6 +1,7 @@
 import mongoose from '../connection.js'
 import {Joi} from '../../Helpers_and_Prerequisites/libs_required.js'
 
+// Combined Physio And Patient for User Schema
 // declaring Schema for validation
 const userSchema = new mongoose.Schema({
     name: {
