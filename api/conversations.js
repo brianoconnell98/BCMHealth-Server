@@ -12,13 +12,14 @@ const options = {
   stripUnknown: true //remove unknown props
 };
 
-// Getting all users
-conversationRouter.get("/", async (req, res) => {
-    const conversations = await Conversation.find({}).populate("Messages");
-    res.send(conversations);
-  });
 
 // conversationRouter is mounted at http://localhost:8080/conversations, anything after this is prefixed with this
+
+// Getting all conversations
+conversationRouter.get("/", async (req, res) => {
+    const conversations = await Conversation.find({}).populate("Messages").populate("Sender").populate("Receiver");
+    res.send(conversations);
+  });
 
 conversationRouter.post('/new_conversation', async(req, res) => {
     let errors = [];
@@ -26,17 +27,18 @@ conversationRouter.post('/new_conversation', async(req, res) => {
         const { error } = conversationValidationSchema.validate(req.body, options);
         if (error !== undefined) errors.push(error) && res.send(errors)
         const { Sender, Receiver, Messages } = req.body
-        const conversationCreated = await Conversation.create({Sender, Receiver, Messages})
         const senderFound = await User.findById(Sender)
         const receiverFound = await User.findById(Receiver)
+        let conversationCreated = await Conversation.create({Sender, Receiver, Messages});
         senderFound.conversations.push(conversationCreated._id)
         receiverFound.conversations.push(conversationCreated._id)
         await senderFound.save()
         await receiverFound.save()
+        conversationCreated = await conversationCreated.populate("Sender").populate("Receiver").populate("Messages").execPopulate()
         sendSuccess(res, "", conversationCreated)
     } catch (error) {
         res.send(error)
-      }
+    }
 })
 
 conversationRouter.post('/:conversationId/new_message', async (req, res) => {
@@ -47,9 +49,10 @@ conversationRouter.post('/:conversationId/new_message', async (req, res) => {
         const { Content, sender } = req.body
         const messageCreated = await Message.create({ Content, sender })
         const { conversationId } = req.params 
-        const conversationFound = await Conversation.findById(conversationId)
+        let conversationFound = await Conversation.findById(conversationId)
         conversationFound.Messages.push(messageCreated)
         await conversationFound.save()
+        conversationFound = await conversationFound.populate("Messages").execPopulate()
         sendSuccess(res, "", conversationFound)
     } catch (error) {
         res.send(error)

@@ -2,8 +2,14 @@ import mongoose from '../connection.js'
 import {Joi} from '../../Helpers_and_Prerequisites/libs_required.js'
 
 const conversationSchema = mongoose.Schema({
-    Sender: String,
-    Receiver: String,
+    Sender: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    Receiver: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
     Messages: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Message"

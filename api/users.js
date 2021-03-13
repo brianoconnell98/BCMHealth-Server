@@ -1,8 +1,15 @@
 import { express, bcrypt } from "../Helpers_and_Prerequisites/libs_required.js";
 //User model
 import { User, userValidationSchema } from "../DB/Models/user.js";
+
+// General Global Variables 
 import passport from "passport";
-const userRouter = express.Router();
+const userRouter = express.Router(),
+local_url = "http://localhost:5500/",
+netlify_url = "https://bcmhealth.netlify.app/";
+
+
+
 
 // Joi schema options
 const options = {
@@ -30,13 +37,13 @@ userRouter.post("/", async (req, res) => {
     const userFound = await User.findOne({ email: email });
     if (userFound) {
       // User exists
-      errors.push({ msg: "Email is already registered" });
-      res.send(res, errors);
+      errors.push({ msg: "Email is already registered", redirectUrl: `${local_url}login.html` });
+      res.status(500).send(errors);
       return;
     }
     // Check passwords match
     if (password !== password2) {
-      errors.push({ msg: "Passwords do not match" });
+      errors.push({ msg: "Passwords do not match" , redirectUrl: `${local_url}register.html` });
       res.status(500).send(errors);
       return;
     }
@@ -59,9 +66,10 @@ userRouter.post("/", async (req, res) => {
           newUser.password = hash;
           // Save user
           const user = await newUser.save();
-          res.send({
+          res.status(200).send({
             success_msg: "You are now registered and can log in",
             user: user,
+            redirectUrl : `${local_url}support.html`
           });
         })
       );
@@ -101,7 +109,7 @@ userRouter.post("/login", async (req, res, next) => {
             res,
             "You are now successfully logged in",
             req.user,
-            "https://bcmhealth.netlify.app/support.html?loggedIn=true"
+            `${local_url}support.html`
           );
         });
       });

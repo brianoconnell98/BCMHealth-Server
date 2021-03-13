@@ -22,8 +22,6 @@ mongoose.connect("mongodb+srv://BrianOConnell:fypproject@bcmhealth.5zklp.mongodb
 })
 
 mongoose.connection.once('open', () => {
-    console.log('DB Connected')
-
     const changeStream = mongoose.connection.collection('conversations').watch()
 
     changeStream.on('change', (change) => {
