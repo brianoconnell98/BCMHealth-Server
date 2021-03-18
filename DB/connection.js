@@ -9,7 +9,7 @@ const pusher = new Pusher({
     secret: "7c88557cbca85bdc39ca",
     cluster: "eu",
     useTLS: true
-  });
+});
 
 mongoose.connect("mongodb+srv://BrianOConnell:fypproject@bcmhealth.5zklp.mongodb.net/bcmhealth?retryWrites=true&w=majority",{
     useFindAndModify: false, 
@@ -30,16 +30,15 @@ mongoose.connection.once('open', () => {
 
     changeStream.on('change', (change) => {
         if (change.operationType === 'insert') {
-            pusher.trigger('chats', 'newChat', {
+            pusher.trigger('conversations', 'newConversation', {
                 'change': change
             })
+            console.log('Pusher Watching')
         } else if (change.operationType === 'update') {
-            // pusher.trigger('messages', 'newMessage', {
-            //     'change': change
-            // })
-            pusher.trigger("my-channel", "my-event", {
-                message: "hello world"
-            });
+            pusher.trigger('messages', 'newMessage', {
+                'change': change
+            })
+            console.log('Message Change');
         } else {
             console.log('Error triggering Pusher...')
         }
