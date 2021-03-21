@@ -11,9 +11,9 @@ netlify_url = "https://bcmhealth.netlify.app/";
 
 // Joi schema options
 const options = {
-  abortEarly: false, // include all errors
-  allowUnknown: true, // ignore unknown props
-  stripUnknown: true //remove unknown props
+    abortEarly: false, // include all errors
+    allowUnknown: true, // ignore unknown props
+    stripUnknown: true //remove unknown props
 };
 
 
@@ -54,6 +54,7 @@ conversationRouter.get('/:id', async(req, res) => {
     }
     
 })
+
 // New Conversation Route
 conversationRouter.post('/new_conversation', async(req, res) => {
     let errors = [];

@@ -14,9 +14,10 @@ import Joi from 'joi'
 import bcrypt from 'bcryptjs'
 import passport from 'passport'
 import passportLocal from 'passport-local'
+import passportGoogle from 'passport-google-oauth20'
 import session from 'express-session'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import Pusher from 'pusher'
 
-export { express, mongoose, Joi, bcrypt, passport, passportLocal, session, cors, cookieParser, Pusher}
+export { express, mongoose, Joi, bcrypt, passport, passportLocal, passportGoogle, session, cors, cookieParser, Pusher}

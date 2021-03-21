@@ -9,8 +9,6 @@ local_url = "http://localhost:5500/",
 netlify_url = "https://bcmhealth.netlify.app/";
 
 
-
-
 // Joi schema options
 const options = {
   abortEarly: false, // include all errors
@@ -139,7 +137,7 @@ const sendError = (res, errorMsg, redirectUrl) => {
   });
 };
 
-// General Helper Method to send Success message back to Client when Error occurs and redirect
+// General Helper Method to send error message back to Client when Error occurs and redirect
 const sendSuccess = (res, successMsg, createdUser, redirectUrl) => {
     res.send({
     success_msg: successMsg,

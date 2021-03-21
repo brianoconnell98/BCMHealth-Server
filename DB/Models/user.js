@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     location: String,
     age: String,
     userType: String,
+    googleId: String, 
     conversations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Conversation"
@@ -33,6 +34,7 @@ userValidationSchema = Joi.object().keys({
     location : Joi.string().trim(),
     age : Joi.string().trim(),
     userType : Joi.string().trim().required(),
+    googleId : Joi.string().trim(),
     conversations : Joi.array().required()
 });
 

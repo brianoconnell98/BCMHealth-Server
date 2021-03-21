@@ -3,11 +3,27 @@ const app = express();
 const port = process.env.PORT || 8000;
 import userRouter from "./api/users.js";
 import conversationRouter from "./api/conversations.js";
+import authRouter from "./api/auth-routes.js";
+import { keys } from "./Helpers_and_Prerequisites/keys.js";
 
 // Passport config
 import passportInitialize from "./Helpers_and_Prerequisites/passport.js"
 
 //--------------------------------------------- Middleware ----------------------------------------------
+
+// Cookie Parser https://www.youtube.com/watch?v=IUw_TgRhTBE&ab_channel=NathanielWoodbury&fbclid=IwAR2zsQHInNxkAsUCLiyxlzIDFBm5eocorsPulPYUBxfdQ0H3CuUNmMry2HY
+app.use(cookieParser("secretcode"))
+
+// Express-Session https://www.youtube.com/watch?v=6FOq4cUdH8k
+app.use(session({
+    secret: 'secretcode',
+    resave: true,
+    saveUninitialized: true,
+    cookie : {
+        maxAge:(1000 * 60 * 60*24),
+        keys: [keys.session.cookieKey]
+        }
+}));
 
 // Passport https://www.youtube.com/watch?v=6FOq4cUdH8k / https://www.youtube.com/watch?v=IUw_TgRhTBE&ab_channel=NathanielWoodbury&fbclid=IwAR2zsQHInNxkAsUCLiyxlzIDFBm5eocorsPulPYUBxfdQ0H3CuUNmMry2HY
 app.use(passport.initialize());
@@ -29,19 +45,6 @@ app.use(express.json())
 // why does he open up a function and give a url? + credentials= 'true' 8:46 first video
 app.use(cors())
 
-// Cookie Parser https://www.youtube.com/watch?v=IUw_TgRhTBE&ab_channel=NathanielWoodbury&fbclid=IwAR2zsQHInNxkAsUCLiyxlzIDFBm5eocorsPulPYUBxfdQ0H3CuUNmMry2HY
-app.use(cookieParser("secretcode"))
-
-// Express-Session https://www.youtube.com/watch?v=6FOq4cUdH8k
-app.use(session({
-    secret: 'secretcode',
-    resave: true,
-    saveUninitialized: true,
-    cookie : {
-        maxAge:(1000 * 60 * 100)
-        }
-}));
-
 
 // Routes
 app.get("/", (req, res) =>{
@@ -52,6 +55,7 @@ app.get("/", (req, res) =>{
 
 app.use("/users", userRouter)
 app.use("/conversations", conversationRouter)
+app.use("/auth-routes", authRouter)
 app.post("/:name", (req, res) =>{
     res.json({
         message: `Well from ${req.params.name}, ${req.params.email}, ${req.body.age}`

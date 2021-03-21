@@ -1,5 +1,5 @@
-// mongodb connection string from mongodb website
 import {mongoose, Pusher} from "../Helpers_and_Prerequisites/libs_required.js"
+import { keys } from "../Helpers_and_Prerequisites/keys.js"
 
 // Pusher code from pusher.com
 //Pusher Config
@@ -11,7 +11,8 @@ const pusher = new Pusher({
     useTLS: true
 });
 
-mongoose.connect("mongodb+srv://BrianOConnell:fypproject@bcmhealth.5zklp.mongodb.net/bcmhealth?retryWrites=true&w=majority",{
+// mongodb connection string from mongodb website
+mongoose.connect(keys.mongoDb.dbURI ,{
     useFindAndModify: false, 
     useNewUrlParser: true, 
     useCreateIndex: true,
