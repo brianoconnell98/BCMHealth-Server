@@ -137,7 +137,7 @@ const sendError = (res, errorMsg, redirectUrl) => {
   });
 };
 
-// General Helper Method to send error message back to Client when Error occurs and redirect
+// General Helper Method to send success message back to Client when Error occurs and redirect
 const sendSuccess = (res, successMsg, createdUser, redirectUrl) => {
     res.send({
     success_msg: successMsg,

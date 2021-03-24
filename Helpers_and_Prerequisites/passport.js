@@ -4,17 +4,6 @@ import { keys } from "./keys.js";
 
 const localStrategy = passportLocal.Strategy;
 const googleStrategy = passportGoogle.Strategy;
-// const keys = require('./keys');
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  User.findById(id).then((user) => {
-    done(null, user);
-  });
-});
 
 // Passport for User
 //Passport Function To Export
@@ -40,38 +29,36 @@ const instantiate = async (passport) => {
     })
   )
 
-
-  // .then = await+async?
-  // OAuth for google
+  // Net ninja OAuth videos commented in readme file
+  // strategy for google OAuth
   passport.use(
     new googleStrategy({
-        // options for google strategy
-        callbackURL: '/auth/google/redirect',
-        clientID: keys.google.clientID,
-        clientSecret: keys.google.clientSecret
-    }, (accessToken, refreshToken, profile, done) => {
-        // passport callback function
-        // Check if user already exists in the db
-        User.findOne({googleId: profile.id}).then((currentUser) => {
-          if(currentUser){
-            // already have the user
-            console.log('user is: ', + currentUser);
-            done(null, currentUser);
-          } else {
+      // options for google strategy
+      callbackURL: '/auth-routes/google/redirect',
+      clientID: keys.google.clientID,
+      clientSecret: keys.google.clientSecret
+  }, async (accessToken, refreshToken, profile, done) => {
+      // try {
+        const userFound = await User.findOne({ googleId: profile.id })
+        if (userFound) {
+        console.log('user is: ', + userFound);
+        return done(null, userFound);
+      } else {
             // if not create new user in the db
             new User({
-              Name: profile.displayName,
+              name: profile.displayName,
               googleId: profile.id
             }).save().then((newUser) => {
               console.log('New user created: ' + newUser);
               done(null, newUser);
             });
           }
-        });
-
-        
+      // catch (error) {
+      //   return error;
+      // }
     })
   )
+
 
   passport.serializeUser((userNormal, done) => {
     try {
@@ -88,6 +75,100 @@ const instantiate = async (passport) => {
       throw error;
     }
   });
+
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser((id, done) => {
+    User.findById(id).then((user) => {
+      done(null, user);
+    });
+  });
 };
 
 export default instantiate
+
+
+// Manipulation of tutorial code and my other passport code 
+
+  // // .then = await+async?
+  // // OAuth for google
+  // passport.use(
+    // new googleStrategy({
+        // options for google strategy
+        // callbackURL: '/auth-routes/google/redirect',
+        // clientID: keys.google.clientID,
+        // clientSecret: keys.google.clientSecret
+    // }, (accessToken, refreshToken, profile, done) => {
+        //// passport callback function
+        //// Check if user already exists in the db
+        // console.log('passport callback function fired')
+        // console.log(profile)
+        // User.findOne({googleId: profile.id}).then((currentUser) => {
+        //   if(currentUser){
+        //     // already have the user
+        //     console.log('user is: ', + currentUser);
+        //     done(null, currentUser);
+        //   } else {
+        //     // if not create new user in the db
+        //     new User({
+        //       Name: profile.displayName,
+        //       googleId: profile.id
+        //     }).save().then((newUser) => {
+        //       console.log('New user created: ' + newUser);
+        //       done(null, newUser);
+        //     });
+        //   }
+        // });
+  //   })
+  // )                 
+
+// // .then = await+async?
+//   // OAuth for google
+//   passport.use(
+//     new googleStrategy({
+//         // options for google strategy
+//         callbackURL: '/auth/google/redirect',
+//         clientID: keys.google.clientID,
+//         clientSecret: keys.google.clientSecret
+//     }, async (accessToken, refreshToken, profile, done) => {
+//         // passport callback function
+//         // Check if user already exists in the db
+//           const googleUserFound = await User.findOne({googleId: profile.id})
+//           if (!googleUserFound)
+//           return done(null, false, {
+//             message: "No user found with that username",
+//           })
+//           else if (goolgeUserMatch) 
+//           // already have the user
+//           return done(null, googleUserMatch);
+//           console.log('user is: ', + googleUserMatch);
+//         } else {
+//             // if not create new user in the db
+//             new User({
+//               Name: profile.displayName,
+//               googleId: profile.id
+//             }).save().then((newUser) => {
+//               console.log('New user created: ' + newUser);
+//               done(null, newUser);
+//             });
+//       })
+//     )
+
+    // User.findOne({googleId: profile.id}).then((currentUser) => {
+        //   if(currentUser){
+        //     // already have the user
+        //     console.log('user is: ', + currentUser);
+        //     done(null, currentUser);
+        //   } else {
+        //     // if not create new user in the db
+        //     new User({
+        //       Name: profile.displayName,
+        //       googleId: profile.id
+        //     }).save().then((newUser) => {
+        //       console.log('New user created: ' + newUser);
+        //       done(null, newUser);
+        //     });
+        //   }
+        // });

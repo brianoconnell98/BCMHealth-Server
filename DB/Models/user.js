@@ -10,11 +10,11 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        // required: true
     },
     password: {
         type: String,
-        required: true
+        // required: true
     },
     location: String,
     age: String,
@@ -29,11 +29,11 @@ const userSchema = new mongoose.Schema({
 // JOI documentation for error handling for schemas - https://www.youtube.com/watch?v=PwUoiTt2oKM&ab_channel=NoobCoder&fbclid=IwAR1FlAFIDWyItHSy9aSgFyGrWd9zGXgjQuL3wby1WWR27guh5okMXxERPxM
 userValidationSchema = Joi.object().keys({
     name: Joi.string().trim().required(),
-    email : Joi.string().trim().email().required(),
-    password : Joi.string().trim().min(4).max(20).required(),
+    email : Joi.string().trim().email(),
+    password : Joi.string().trim().min(4).max(20),
     location : Joi.string().trim(),
     age : Joi.string().trim(),
-    userType : Joi.string().trim().required(),
+    userType : Joi.string().trim(),
     googleId : Joi.string().trim(),
     conversations : Joi.array().required()
 });
