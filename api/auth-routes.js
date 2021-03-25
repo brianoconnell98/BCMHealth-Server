@@ -12,7 +12,7 @@ const options = {
   stripUnknown: true, //remove unknown props
 };
 
-// authRouter is mounted at http://localhost:5500/auth-routes, anything after this is prefixed with this
+// authRouter is mounted at http://localhost:5500/auth, anything after this is prefixed with this
 
 // auth login
 authRouter.get("/login", (req, res) => {

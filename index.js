@@ -43,7 +43,12 @@ app.use(express.json())
 //Permit transferring of data from one server to the other 
 //Adam O Ceallaigh explained as to how to download this add on
 // why does he open up a function and give a url? + credentials= 'true' 8:46 first video
-app.use(cors())
+app.use(
+    cors({
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    })
+    );
 
 
 // Routes
@@ -55,7 +60,7 @@ app.get("/", (req, res) =>{
 
 app.use("/users", userRouter)
 app.use("/conversations", conversationRouter)
-app.use("/auth-routes", authRouter)
+app.use("/auth", authRouter)
 app.post("/:name", (req, res) =>{
     res.json({
         message: `Well from ${req.params.name}, ${req.params.email}, ${req.body.age}`
