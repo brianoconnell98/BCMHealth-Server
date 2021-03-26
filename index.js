@@ -43,6 +43,7 @@ app.use(express.json())
 //Permit transferring of data from one server to the other 
 //Adam O Ceallaigh explained as to how to download this add on
 // why does he open up a function and give a url? + credentials= 'true' 8:46 first video
+// Adam gave me this code to try and overcome a cors issue
 app.use(
     cors({
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

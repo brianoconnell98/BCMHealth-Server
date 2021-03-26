@@ -71,7 +71,7 @@ userRouter.post("/", async (req, res) => {
           // Save user
           const user = await newUser.save();
           res.status(200).send({
-            success_msg: "You are now registered and can log in",
+            success_msg: "You are now registered and you are logged in",
             user: user,
             redirectUrl : `${local_url}support.html`
           });

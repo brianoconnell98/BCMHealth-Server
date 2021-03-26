@@ -5,6 +5,11 @@ import { keys } from "./keys.js";
 const localStrategy = passportLocal.Strategy;
 const googleStrategy = passportGoogle.Strategy;
 
+const local_server_url = "http://localhost:8000/",
+local_client_url = "http://localhost:5500/",
+netlify_url = "https://bcmhealth.netlify.app/",
+heroku_url = "https://bcmhealthserver.herokuapp.com/";
+
 // Passport for User
 //Passport Function To Export
 const instantiate = async (passport) => {
@@ -34,7 +39,7 @@ const instantiate = async (passport) => {
   passport.use(
     new googleStrategy({
       // options for google strategy
-      callbackURL: '/auth-routes/google/redirect',
+      callbackURL: `${local_client_url}support.html`,
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret
   }, async (accessToken, refreshToken, profile, done) => {

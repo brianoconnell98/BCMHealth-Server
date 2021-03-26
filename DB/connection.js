@@ -1,6 +1,10 @@
 import {mongoose, Pusher} from "../Helpers_and_Prerequisites/libs_required.js"
 import { keys } from "../Helpers_and_Prerequisites/keys.js"
 
+// Clever Programmer
+// https://youtu.be/BKY0avHeda8
+// https://youtu.be/OgOx6Y40-3s
+
 // Pusher code from pusher.com
 //Pusher Config
 const pusher = new Pusher({

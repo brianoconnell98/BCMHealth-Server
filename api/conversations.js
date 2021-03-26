@@ -19,6 +19,11 @@ const options = {
 
 // conversationRouter is mounted at http://localhost:8080/conversations, anything after this is prefixed with this
 
+
+// Code from Clever Programmer
+// https://youtu.be/BKY0avHeda8
+// https://youtu.be/OgOx6Y40-3s
+
 // Getting all conversations
 conversationRouter.get("/", async (req, res) => {
     const conversations = await Conversation.find({}).populate("Messages").populate("Sender").populate("Receiver");

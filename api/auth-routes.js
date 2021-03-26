@@ -40,12 +40,24 @@ passport.authenticate("google", {
 authRouter.get("/google/redirect",
 passport.authenticate("google"),
 (req, res) => {
-//res.send(req.user);
-res.json({
-    message: "Google OAuth redirecting as you have signed in!",
+res.send(req.user);
+res.status(200).send({
+    success_msg: "You are now registered and you are logged in",
+    user: user,
+    redirectUrl : `${local_url}support.html`
 });
 }
 );
+
+// req.session.save(() => {
+//     req.session.user = req.user;
+//     sendSuccess(
+//     res,
+//     "You are now successfully logged in",
+//     req.user,
+//     `${local_url}support.html`
+//     );
+// });
 
 // // Login Handle
 authRouter.post("/login", async (req, res, next) => {
