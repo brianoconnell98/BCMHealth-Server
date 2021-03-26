@@ -39,7 +39,7 @@ const instantiate = async (passport) => {
   passport.use(
     new googleStrategy({
       // options for google strategy
-      callbackURL: `${local_client_url}support.html`,
+      callbackURL: `${netlify_url}support.html`,
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret
   }, async (accessToken, refreshToken, profile, done) => {

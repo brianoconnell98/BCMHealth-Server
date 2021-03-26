@@ -41,13 +41,13 @@ userRouter.post("/", async (req, res) => {
     const userFound = await User.findOne({ email: email });
     if (userFound) {
       // User exists
-      errors.push({ msg: "Email is already registered", redirectUrl: `${local_url}login.html` });
+      errors.push({ msg: "Email is already registered", redirectUrl: `${netlify_url}login.html` });
       res.status(500).send(errors);
       return;
     }
     // Check passwords match
     if (password !== password2) {
-      errors.push({ msg: "Passwords do not match" , redirectUrl: `${local_url}register.html` });
+      errors.push({ msg: "Passwords do not match" , redirectUrl: `${netlify_url}register.html` });
       res.status(500).send(errors);
       return;
     }
@@ -73,7 +73,7 @@ userRouter.post("/", async (req, res) => {
           res.status(200).send({
             success_msg: "You are now registered and you are logged in",
             user: user,
-            redirectUrl : `${local_url}support.html`
+            redirectUrl : `${netlify_url}support.html`
           });
         })
       );
@@ -113,7 +113,7 @@ userRouter.post("/login", async (req, res, next) => {
             res,
             "You are now successfully logged in",
             req.user,
-            `${local_url}support.html`
+            `${netlify_url}support.html`
           );
         });
       });

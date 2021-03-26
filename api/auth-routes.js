@@ -44,7 +44,7 @@ res.send(req.user);
 res.status(200).send({
     success_msg: "You are now registered and you are logged in",
     user: user,
-    redirectUrl : `${local_url}support.html`
+    redirectUrl : `${netlify_url}support.html`
 });
 }
 );
@@ -55,7 +55,7 @@ res.status(200).send({
 //     res,
 //     "You are now successfully logged in",
 //     req.user,
-//     `${local_url}support.html`
+//     `${netlify_url}support.html`
 //     );
 // });
 
@@ -76,7 +76,7 @@ passport.authenticate("google", (err, userNormal, info) => {
         res,
         "You are now successfully logged in",
         req.user,
-        `${local_url}support.html`
+        `${netlify_url}support.html`
         );
     });
     });

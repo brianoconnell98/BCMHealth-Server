@@ -35,7 +35,7 @@ conversationRouter.get('/:id', async(req, res) => {
     let errors = [];
     try {
         // Error Handling
-        req.params.id = req?.params?.id ?? errors.push({ msg: "Conversation Id is not valid" , redirectUrl: `${local_url}chatPortal.html` });
+        req.params.id = req?.params?.id ?? errors.push({ msg: "Conversation Id is not valid" , redirectUrl: `${netlify_url}chatPortal.html` });
         if(errors.length > 0) res.status(500).send(errors);
         
         // Getting the id from the url route
@@ -46,8 +46,8 @@ conversationRouter.get('/:id', async(req, res) => {
         let conversation_found = await Conversation.findById(conversation_id);
 
         // Check if conversation Was Found 
-        conversation_found = await conversation_found.populate("Messages").populate("Receiver").execPopulate() ??  errors.push({ msg: "Conversation Was not found with those credentials " , redirectUrl: `${local_url}chatPortal.html` });
-        //const messages_found = conversation_found?.Messages ?? errors.push({ msg: "No messages could be found for this conversation" , redirectUrl: `${local_url}chatPortal.html` });
+        conversation_found = await conversation_found.populate("Messages").populate("Receiver").execPopulate() ??  errors.push({ msg: "Conversation Was not found with those credentials " , redirectUrl: `${netlify_url}chatPortal.html` });
+        //const messages_found = conversation_found?.Messages ?? errors.push({ msg: "No messages could be found for this conversation" , redirectUrl: `${netlify_url}chatPortal.html` });
         if(errors.length > 0) res.status(404).send(errors);
 
         //Return conversation Found messages 
