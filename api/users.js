@@ -24,6 +24,12 @@ userRouter.get("/", async (req, res) => {
   res.send(users);
 });
 
+// Getting all users
+userRouter.get("/:id", async (req, res) => {
+  const userFound = await User.findById(req.params.id);
+  res.send(userFound);
+});
+
 // Traversy Media https://www.youtube.com/watch?v=6FOq4cUdH8k
 // Register Handle
 userRouter.post("/", async (req, res) => {

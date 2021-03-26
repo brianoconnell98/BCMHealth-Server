@@ -1,6 +1,9 @@
 import mongoose from '../connection.js'
 import {Joi} from '../../Helpers_and_Prerequisites/libs_required.js'
 
+
+// https://stackoverflow.com/questions/57176032/validationerror-in-mongoose-nodejs
+// helped with errpr with validation for user schema
 // Combined Physio And Patient for User Schema
 // declaring Schema for validation
 const userSchema = new mongoose.Schema({
